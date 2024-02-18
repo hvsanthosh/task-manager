@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+import cors from "cors";
 import morgan from "morgan";
 import connectDB from "./db/connect.js";
 // routes importing
@@ -18,6 +19,7 @@ const app = express();
 
 // middleware
 // morgan to log requests coming on console
+app.use(cors());
 app.use(morgan("combined"));
 
 app.use(express.json());
@@ -33,8 +35,8 @@ const port = process.env.PORT || 9000;
 
 // calling DB and cron job to run every minute.
 connectDB();
-cronJobForPRiorityUpdateInTask();
-twilioCallCronLogic();
+// cronJobForPRiorityUpdateInTask();
+// twilioCallCronLogic();
 
 app.listen(port, () => {
   console.log(`Server is listening at port ${port}`);
