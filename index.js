@@ -20,7 +20,7 @@ const app = express();
 // middleware
 // morgan to log requests coming on console
 app.use(cors());
-app.use(morgan("combined"));
+app.use(morgan("dev"));
 
 app.use(express.json());
 

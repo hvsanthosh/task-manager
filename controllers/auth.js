@@ -1,5 +1,5 @@
 import User from "../models/User.js";
-
+import { comparePassword } from "../utils/passwordCompare.js";
 // controller for registering takes in unique email, password, name, phone number for cron calling purpose.
 // priority will be set automatically using cron logic based on tasks completion status and due_date.
 // JWT are used for authentication purpose.
@@ -14,7 +14,7 @@ const register = async (req, res) => {
   });
 };
 
-// Login using the registerd email and valid password.
+// Login using the register email and valid password.
 
 const login = async (req, res) => {
   const { email, password } = req.body;
@@ -26,7 +26,7 @@ const login = async (req, res) => {
   if (!user) {
     res.status(401).json({ message: "Invalid Credentials" });
   }
-  const isPasswordCorrect = await user.comparePassword(password);
+  const isPasswordCorrect = await comparePassword(email, password);
   if (!isPasswordCorrect) {
     res.status(401).json({ message: "Invalid Credentials" });
   }
